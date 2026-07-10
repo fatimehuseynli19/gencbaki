@@ -9,7 +9,8 @@ app = Flask(__name__)
 database_url = os.environ.get("DATABASE_URL", "sqlite:///gencbaki.db")
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
-app.config["SQLALCHEMY_DATABASE_URI"] = database_url                                                                                     db = SQLAlchemy(app)
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+db = SQLAlchemy(app)
 
 class Opportunity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
