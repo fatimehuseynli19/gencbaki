@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Fürsət Əlavə Et — GəncBakı</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Yeni Fürsət Əlavə Et</h1>
+    <form method="POST">
+        <label>Başlıq:</label><br>
+        <input type="text" name="title" required><br><br>
+
+        <label>Təsvir:</label><br>
+        <textarea name="description"></textarea><br><br>
+
+        <label>Son tarix:</label><br>
+        <input type="text" name="deadline" placeholder="məs. 15 avqust 2026"><br><br>
+
+        <button type="submit">Əlavə et</button>
+    </form>
+</body>
+</html>

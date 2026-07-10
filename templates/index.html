@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>GəncBakı</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>GəncBakı — Fürsətlər</h1>
+    <a href="/add">+ Yeni fürsət əlavə et</a>
+    <hr>
+
+    {% for item in opportunities %}
+        <div>
+            <strong>{{ item.category }}</strong>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+            <p>Son tarix: {{ item.deadline }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>
