@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///gencbaki.db"
-db = SQLAlchemy(app)
+
+
+database_url = os.environ.get("DATABASE_URL", "sqlite:///gencbaki.db")
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url                                                                                     db = SQLAlchemy(app)
 
 class Opportunity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -51,6 +56,13 @@ def add_opportunity():
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("add.html")
+
+@app.route("/delete/<int:opportunity_id>")
+def delete_opportunity(opportunity_id):
+    opportunity = Opportunity.query.get_or_404(opportunity_id)
+    db.session.delete(opportunity)
+    db.session.commit()
+    return redirect(url_for("home"))
 
 with app.app_context():
     db.create_all()
