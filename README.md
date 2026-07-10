@@ -58,6 +58,22 @@ python app.py
 
 Brauzerdə: `http://127.0.0.1:5000`
 
+\## Məzmun strategiyası
+
+
+
+Hazırkı MVP-də əsas fürsətlər curator (mən özüm) tərəfindən əlavə olunur — bu, "cold start" probleminin (istifadəçi yoxdursa məzmun yoxdur, məzmun yoxdursa istifadəçi gəlmir) həllidir.
+
+
+
+\*\*Gələcək inkişaf planı:\*\*
+
+\- Rəsmi mənbələrdən (YayFest, universitet elanları, Holberton) avtomatik məlumat yığılması (web scraping)
+
+\- Kamp/proqram təşkilatçıları ilə tərəfdaşlıq — onlar öz elanlarını platformada yerləşdirsin (iki tərəfli fayda: onlar iştirakçı tapır, platforma məzmunla zənginləşir)
+
+\- İstifadəçilərdən əlavə fürsət təklifi imkanı (moderasiya ilə)
+
 
 
 \## Müəllif
