@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Yeni Fürsət Əlavə Et</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <label>Başlıq:</label><br>
         <input type="text" name="title" required><br><br>
 
@@ -16,6 +16,8 @@
 
         <label>Son tarix:</label><br>
         <input type="text" name="deadline" placeholder="məs. 15 avqust 2026"><br><br>
+        <label>Şəkil (istəyə bağlı):</label><br>
+        <input type="file" name="image" accept="image/*"><br><br>
 
         <button type="submit">Əlavə et</button>
     </form>
