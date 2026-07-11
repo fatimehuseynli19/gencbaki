@@ -107,14 +107,6 @@ def delete_opportunity(opportunity_id):
     db.session.commit()
     return redirect(url_for("home"))
 
-@app.route("/migrate-db-xyz123")
-def migrate_db():
-    with db.engine.connect() as conn:
-        conn.execute(db.text("ALTER TABLE opportunity ADD COLUMN IF NOT EXISTS external_link VARCHAR(300)"))
-        conn.execute(db.text("ALTER TABLE opportunity ADD COLUMN IF NOT EXISTS click_count INTEGER DEFAULT 0"))
-        conn.commit()
-    return "Migration completed!"
-
 with app.app_context():
     db.create_all()
 
