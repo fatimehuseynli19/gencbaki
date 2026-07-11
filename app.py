@@ -23,7 +23,6 @@ def allowed_file(filename):
 
 app = Flask(__name__)
 
-
 database_url = os.environ.get("DATABASE_URL", "sqlite:///gencbaki.db")
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
@@ -87,6 +86,19 @@ def add_opportunity():
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("add.html")
+
+@app.route("/go/<int:opportunity_id>")
+def track_click(opportunity_id):
+    opportunity = Opportunity.query.get_or_404(opportunity_id)
+    opportunity.click_count = (opportunity.click_count or 0) + 1
+    db.session.commit()
+
+    if opportunity.external_link:
+        link = opportunity.external_link
+        separator = "&" if "?" in link else "?"
+        return redirect(f"{link}{separator}utm_source=gencbaki&utm_medium=referral")
+
+    return redirect(url_for("home"))
 
 @app.route("/delete/<int:opportunity_id>")
 def delete_opportunity(opportunity_id):

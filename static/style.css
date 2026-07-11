@@ -84,3 +84,18 @@ a.add-link:hover {
     border-radius: 8px;
     margin-bottom: 10px;
 }
+.details-btn {
+    margin-top: 12px;
+    align-self: flex-start;
+    background: #1565c0;
+    color: white;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-right: 8px;
+}
+
+.details-btn:hover {
+    background: #0d47a1;
+}

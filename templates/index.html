@@ -19,6 +19,9 @@
             <h3>{{ item.title }}</h3>
             <p>{{ item.description }}</p>
             <p>Son tarix: {{ item.deadline }}</p>
+            {% if item.external_link %}
+	    <a href="{{ url_for('track_click', opportunity_id=item.id) }}" target="_blank" class="details-btn">Ətraflı bax</a>
+            {% endif %}
             <a href="{{ url_for('delete_opportunity', opportunity_id=item.id) }}" class="delete-btn">Sil</a>
         </div>
     {% endfor %}
