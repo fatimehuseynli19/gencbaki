@@ -13,7 +13,7 @@
     {% for item in opportunities %}
         <div class="card">
             {% if item.image_filename %}
-            <img src="{{ url_for('static', filename='uploads/' + item.image_filename) }}" class="card-img">
+            <img src="{{ item.image_filename }}" class="card-img">
             {% endif %}
             <span class="tag">{{ item.category }}</span>
             <h3>{{ item.title }}</h3>

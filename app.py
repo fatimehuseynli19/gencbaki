@@ -3,6 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+
+load_dotenv()
+
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET")
+)
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "static", "uploads")
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
@@ -26,6 +37,8 @@ class Opportunity(db.Model):
     description = db.Column(db.String(500))
     deadline = db.Column(db.String(50))
     image_filename = db.Column(db.String(200))
+    external_link = db.Column(db.String(300))
+    click_count = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 CATEGORY_KEYWORDS = {
@@ -56,18 +69,19 @@ def add_opportunity():
         description = request.form["description"]
         ai_category = classify_with_ai(description)
 
-        image_filename = None
+        image_url = None
         file = request.files.get("image")
         if file and file.filename and allowed_file(file.filename):
-            image_filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, image_filename))
+            upload_result = cloudinary.uploader.upload(file)
+            image_url = upload_result.get("secure_url")
 
         new_opportunity = Opportunity(
             title=request.form["title"],
             category=ai_category,
             description=description,
             deadline=request.form["deadline"],
-            image_filename=image_filename
+            image_filename=image_url,
+            external_link=request.form.get("external_link", "")
         )
         db.session.add(new_opportunity)
         db.session.commit()
